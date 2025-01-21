@@ -92,7 +92,15 @@ const GameControl = (() => {
             GB.classList.remove("hidden");
             start.classList.add("hidden");
             turntext.textContent='${player1.name} turn (${player1.symbol})';
-        })
+
+            squares.forEach((square,index) => {
+                square.addEventListener('click',()=>playturn(square,index));
+            });
+        });
+    };
+
+    const playturn = (square,index) =>{
+        const
     }
 
 })
