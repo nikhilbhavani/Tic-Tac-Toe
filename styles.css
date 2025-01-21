@@ -1,0 +1,21 @@
+@font-face { 
+    font-family: 'MyFont'; 
+    src: 
+        url('Norse-Bold.otf')  
+        format('opentype'); 
+    font-weight: normal; 
+    font-style: normal; 
+} 
+
+*{
+    margin: 0;
+    font-family: 'MyFont', Arial;
+    border: border-box;
+}
+
+.heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
