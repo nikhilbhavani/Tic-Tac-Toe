@@ -17,5 +17,88 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 40px;
+    flex-direction: column;
 }
+.heading h1{
+    font-size: 50px;
+}
+
+.player-type{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 30px;
+}
+
+.player-1{
+    display: flex;
+    flex-direction: column;
+    padding-right: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-2{
+    display: flex;
+    flex-direction: column;
+    padding-right: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.turn-text{
+    font-size: 20px;
+    padding:20px
+}
+
+.winner-text{
+    font-size: 20px;
+    color: orange;
+    padding: 20px;
+}
+
+.game-board{
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3,150px);
+    grid-template-rows: repeat(3,150px);
+    height: 450px;
+    width: 450px;
+}
+
+.square{
+    height: 150px;
+    width: 150px;
+    border: 1px solid black;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.square span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.hidden{
+    display: none;
+}
+
+
+
+

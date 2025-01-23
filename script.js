@@ -1,5 +1,6 @@
 const start = document.querySelector(".start");
 const turntext = document.querySelector(".turn-text");
+const winnertext = document.querySelector(".winner-text");
 
 
 const Gameboard = (() => {
@@ -21,7 +22,7 @@ const Gameboard = (() => {
     }
     board[row][col].checked = true;
     board[row][col].value = symbol;
-    span.textContent(symbol);
+    span.textContent=symbol;
     return true;
     
   };
@@ -30,7 +31,7 @@ const Gameboard = (() => {
     squares.forEach(square=>{
         const span=square.querySelector("span");
         if(span){
-            span.textContent("");
+            span.textContent='';
         }
     });
     turntext.classList.remove("hidden");
@@ -78,24 +79,28 @@ const GameControl = (() => {
   humanplayer1.addEventListener("click", () => {
     humanplayer1.classList.add("selected");
     compplayer1.classList.remove("selected");
+    compplayer1.classList.add("hidden");
     player1type = "Human";
   });
 
   humanplayer2.addEventListener("click", () => {
     humanplayer2.classList.add("selected");
     compplayer2.classList.remove("selected");
+    compplayer2.classList.add("hidden");
     player2type = "Human";
   });
 
   compplayer1.addEventListener("click", () => {
     compplayer1.classList.add("selected");
     humanplayer1.classList.remove("selected");
+    humanplayer1.classList.add("hidden");
     player1type = "Computer";
   });
 
   compplayer2.addEventListener("click", () => {
     compplayer2.classList.add("selected");
     humanplayer2.classList.remove("selected");
+    humanplayer2.classList.add("hidden");
     player2type = "Computer";
   });
 
@@ -142,9 +147,8 @@ const GameControl = (() => {
       if (checkwinner()) {
         turntext.classList.add("hidden");
         winnertext.classList.remove("hidden");
-        winnertext.textContent = `${currentplayer} Wins!!`;
+        winnertext.textContent = `${currentplayer.name} Wins!!`;
         gameend = true;
-        reset[0].addEventListener("click", () => gamereset(squares));
         return;
       }
 
@@ -153,13 +157,38 @@ const GameControl = (() => {
         winnertext.classList.remove("hidden");
         winnertext.textContent = `It's a Tie!!`;
         gameend = true;
-        reset[0].addEventListener("click", () => gamereset(squares));
         return;
       }
 
       switchplayer();
     } else {
       alert("Cell already used.");
+    }
+  };
+
+  const compplay = () => {
+    const board=Gameboard.getBoard();
+    const moves=[];
+    board.forEach((row,rowindex)=>{
+        row.forEach((cell,colindex)=>{
+            if(!cell.checked){
+                moves.push({rowindex,colindex});
+            }
+        });
+    });
+    const randommove=moves[Math.floor(Math.random()*moves.length)];
+    const square=squares[randommove.rowindex*3+randommove.colindex];
+
+    setTimeout(() => {
+        playturn(square,randommove.rowindex*3+randommove.colindex)
+    }, 1000);
+  }
+
+  const switchplayer=()=>{
+    currentplayer=currentplayer===players[0]? players[1]:players[0];
+    turntext.textContent=`${currentplayer.name}'s turn ${currentplayer.symbol}`;
+    if(currentplayer.name==="Computer"){
+        compplay();
     }
   };
 
@@ -194,10 +223,14 @@ const GameControl = (() => {
     Gameboard.resetBoard(squares);
     gameend = false;
     currentplayer = players[0];
+    turntext.textContent=`${currentplayer.name}'s turn ${currentplayer.symbol}`;
     };
+
+    reset.addEventListener('click', () => gamereset(squares));
     
-    return{assignplayer,playturn,gamereset,startGame};
+    return{assignplayer,playturn,gamereset,startGame,switchplayer,compplay};
 })();
 
 start.addEventListener('click',GameControl.startGame);
+
 
